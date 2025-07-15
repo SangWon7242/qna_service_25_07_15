@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: qnaService
+
+server:
+  port: 8030
