@@ -6,6 +6,10 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true # 콘솔창에 SQL문을 출력
+    hibernate:
+      ddl-auto: update # update, create, create-drop, validate
 
 server:
   port: 8030
