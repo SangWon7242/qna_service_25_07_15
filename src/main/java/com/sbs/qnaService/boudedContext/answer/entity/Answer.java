@@ -1,5 +1,6 @@
 package com.sbs.qnaService.boudedContext.answer.entity;
 
+import com.sbs.qnaService.boudedContext.question.entity.Question;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +20,6 @@ public class Answer {
 
   private LocalDateTime createDate;
 
-//  private Question question;
+  @ManyToOne
+  private Question question;
 }

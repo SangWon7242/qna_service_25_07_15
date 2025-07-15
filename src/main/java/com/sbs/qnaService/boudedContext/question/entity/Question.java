@@ -21,5 +21,5 @@ public class Question {
   @Column(columnDefinition = "TEXT") // TEXT 타입으로 설정
   private String content;
 
-  private LocalDateTime createDate; // 생성일시를 저장하는 필드
+  private LocalDateTime createDate; // datetime : 생성일시를 저장하는 필드
 }
