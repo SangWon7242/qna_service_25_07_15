@@ -1,10 +1,12 @@
 package com.sbs.qnaService.boudedContext.question.entity;
 
+import com.sbs.qnaService.boudedContext.answer.entity.Answer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +24,12 @@ public class Question {
   private String content;
 
   private LocalDateTime createDate; // datetime : 생성일시를 저장하는 필드
+
+  // @OneToMany : 자바세상에서의 편의를 위해서 필드 생성
+  // 이 녀석은 실제로 DB에 테이블을 생성하지 않음
+  // DB는 리스트나 배열을 지원하지 않기 때문에
+  // 만들어도 되고 만들지 않아도 된다.
+  // 만약에 만들면 해당 객체와 관련된 답변을 찾을 때 편하다.
+  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+  private List<Answer> answerList;
 }
