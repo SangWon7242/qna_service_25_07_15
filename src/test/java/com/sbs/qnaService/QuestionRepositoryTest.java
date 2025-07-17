@@ -96,4 +96,17 @@ class QuestionRepositoryTest {
 			assertEquals("sbb가 무엇인가요?", q.getSubject());
 		}
 	}
+
+	/*
+	SELECT *
+	FROM question
+	WHERE subject = "sbb가 무엇인가요?";
+	*/
+	@Test
+	@DisplayName("findBySubject 테스트")
+	void t4() {
+		Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
+
+		assertEquals(1, q.getId());
+	}
 }
