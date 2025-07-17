@@ -21,10 +21,10 @@ spring:
     show-sql: true # 콘솔창에 SQL문을 출력
     hibernate:
       ddl-auto: update # update, create, create-drop, validate
-      format_sql: true # SQL문을 포맷팅
-      type:
-        descriptor:
-          sql: trace # SQL문을 추적
+    properties:
+      hibernate:
+        format_sql: true # SQL문을 보기 좋게 출력
+        use_sql_comments: true # SQL문에 주석을 추가
 
 server:
   port: 8030

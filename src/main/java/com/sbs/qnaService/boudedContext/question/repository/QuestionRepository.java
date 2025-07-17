@@ -2,10 +2,20 @@ package com.sbs.qnaService.boudedContext.question.repository;
 
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
-// JpaRepository : JPA를 사용하여 데이터베이스와 상호작용하는 리포지토리 인터페이스
-// - 기본적인 CRUD(Create, Read, Update, Delete) 메서드를 제공
-// Question : 엔티티 클래스
-// Integer : 엔티티의 ID 타입
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
+    @Modifying
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
+    void foreignKeyDisabled();
+
+    // nativeQuery : sql 문법을 그대로 사용
+    @Modifying
+    @Query(value = "TRUNCATE TABLE question", nativeQuery = true)
+    void truncate();
+
+    @Modifying
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
+    void foreignKeyEnabled();
 }
