@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,6 @@ class QuestionRepositoryTest {
 	private QuestionRepository questionRepository;
 
 	@BeforeEach // 각 테스트 메서드 실행 전에 호출되는 메서드\
-	@Rollback(false) // 테스트 후 롤백하지 않도록 설정
 	void beforeEach() {
 		questionRepository.foreignKeyDisabled(); // 외래 키 제약 조건 비활성화
 		questionRepository.truncate();
@@ -78,5 +78,22 @@ class QuestionRepositoryTest {
 
 		Question q = all.get(0);
 		assertEquals("sbb가 무엇인가요?", q.getSubject());
+	}
+
+	/*
+	SELECT *
+	FROM question
+	WHERE id = 1;
+	*/
+	@Test
+	@DisplayName("findById 테스트")
+	void t3() {
+		Optional<Question> oq = questionRepository.findById(1);
+
+		// isPresent : Optional 객체가 값을 가지고 있는지 확인
+		if(oq.isPresent()) {
+			Question q = oq.get();
+			assertEquals("sbb가 무엇인가요?", q.getSubject());
+		}
 	}
 }
