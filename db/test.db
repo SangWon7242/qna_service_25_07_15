@@ -1,0 +1,4 @@
+# 테스트모드 DB 삭제, 생성, 선택
+DROP DATABASE IF EXISTS qnaService_test;
+CREATE DATABASE qnaService_test;
+USE qnaService_test;

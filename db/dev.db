@@ -1,0 +1,4 @@
+# 개발모드 DB 삭제, 생성, 선택
+DROP DATABASE IF EXISTS qnaService_dev;
+CREATE DATABASE qnaService_dev;
+USE qnaService_dev;

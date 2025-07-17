@@ -32,8 +32,13 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jvmArgs '-Xshare:off' // JVM 아규먼트 설정
+	jvmArgs += [
+			"-javaagent:${classpath.find { it.name.contains('byte-buddy-agent') }.absolutePath}"
+	]
 }

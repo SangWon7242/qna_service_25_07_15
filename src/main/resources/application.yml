@@ -1,15 +1,30 @@
 spring:
   application:
     name: qnaService
+  output:
+    ansi:
+      enabled: always # 콘솔창 색상 변경
+  profiles:
+    active: test # dev, test, prod
+#  datasource:
+#    url: jdbc:h2:./db_dev;MODE=MySQL
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
   datasource:
-    url: jdbc:h2:./db_dev;MODE=MySQL
-    username: sa
+    # 데이터베이스 연결 URL
+    url: jdbc:mariadb://localhost:3306/qnaService_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    username: root
     password:
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     show-sql: true # 콘솔창에 SQL문을 출력
     hibernate:
       ddl-auto: update # update, create, create-drop, validate
+      format_sql: true # SQL문을 포맷팅
+      type:
+        descriptor:
+          sql: trace # SQL문을 추적
 
 server:
   port: 8030
