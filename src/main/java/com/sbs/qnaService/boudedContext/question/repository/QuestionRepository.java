@@ -20,4 +20,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
   void foreignKeyEnabled();
 
   Question findBySubject(String subject);
+
+  Question findBySubjectAndContent(String subject, String content);
 }

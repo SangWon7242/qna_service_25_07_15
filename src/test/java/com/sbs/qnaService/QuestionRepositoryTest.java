@@ -109,4 +109,17 @@ class QuestionRepositoryTest {
 
 		assertEquals(1, q.getId());
 	}
+
+	/*
+	SELECT *
+	FROM question
+	WHERE subject = "sbb가 무엇인가요?"
+	AND content = "sbb에 대해서 알고 싶습니다.";
+	*/
+	@Test
+	@DisplayName("findBySubjectAndContent 테스트")
+	void t5() {
+		Question q = questionRepository.findBySubjectAndContent("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
+		assertEquals(1, q.getId());
+	}
 }
