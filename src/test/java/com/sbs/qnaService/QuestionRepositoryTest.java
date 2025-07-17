@@ -157,4 +157,23 @@ class QuestionRepositoryTest {
 		q.setContent("수정된 내용");
 		questionRepository.save(q); // save 메서드는 데이터가 존재하는 경우 업데이트를 수행한다.
 	}
+
+	/*
+	DELETE
+	FROM question
+	WHERE id = ?;
+	*/
+	@Test
+	@DisplayName("delete 테스트")
+	void t8() {
+		// SQL : SELECT COUNT(*) FROM question;
+		assertEquals(2, questionRepository.count());
+
+		Optional<Question> oq = questionRepository.findById(1);
+		assertTrue(oq.isPresent());
+
+		Question q = oq.get();
+		questionRepository.delete(q);
+		assertEquals(1, questionRepository.count());
+	}
 }
