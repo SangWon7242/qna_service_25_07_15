@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")  // 테스트 프로파일을 사용하여 테스트 환경 설정
@@ -135,5 +136,25 @@ class QuestionRepositoryTest {
 
 		Question q = qList.get(0);
 		assertEquals("sbb가 무엇인가요?", q.getSubject());
+	}
+
+	/*
+	UPDATE question
+	SET create_date = NOW(),
+	subject = ?,
+	content = ?,
+	WHERE id = ?;
+	*/
+	@Test
+	@DisplayName("update 테스트")
+	@Rollback(false)
+	void t7() {
+		Optional<Question> oq = questionRepository.findById(1);
+		assertTrue(oq.isPresent());
+
+		Question q = oq.get();
+		q.setSubject("수정된 제목");
+		q.setContent("수정된 내용");
+		questionRepository.save(q); // save 메서드는 데이터가 존재하는 경우 업데이트를 수행한다.
 	}
 }
