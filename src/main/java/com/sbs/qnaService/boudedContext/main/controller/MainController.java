@@ -11,4 +11,11 @@ public class MainController {
   public String showMain() {
     return "안녕하세요. 스프링부트에 오신 것을 환영합니다.";
   }
+
+  // 루트 경로("/")로 접근 시 "/question/list"로 리다이렉트
+  @GetMapping("/")
+  public String root() {
+    return "redirect:/question/list";
+  }
 }
+
