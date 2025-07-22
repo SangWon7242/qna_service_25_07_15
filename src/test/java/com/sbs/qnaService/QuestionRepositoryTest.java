@@ -1,5 +1,7 @@
 package com.sbs.qnaService;
 
+import com.sbs.qnaService.boudedContext.answer.entity.Answer;
+import com.sbs.qnaService.boudedContext.answer.repository.AnswerRepository;
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,8 +29,15 @@ class QuestionRepositoryTest {
 	@Autowired
 	private QuestionRepository questionRepository;
 
+	@Autowired
+	private AnswerRepository answerRepository;
+
 	@BeforeEach // 각 테스트 메서드 실행 전에 호출되는 메서드\
 	void beforeEach() {
+		// 답변데이터 초기화
+		answerRepository.deleteAll();
+		answerRepository.clearAutoIncrement();
+
 		// deleteAll() : DELETE FROM question;
 		questionRepository.deleteAll();
 
@@ -178,5 +186,35 @@ class QuestionRepositoryTest {
 		Question q = oq.get();
 		questionRepository.delete(q);
 		assertEquals(1, questionRepository.count());
+	}
+
+	/*
+	// 질문 조회
+	SELECT *
+	FROM question
+	WHERE id = ?;
+	
+	// 조회한 질문에 대한 답변 데이터 생성
+	INSERT INTO answer
+	SET create_date = NOW,
+	content = ?,
+	question_id = ?;
+	*/
+	@Test
+	@DisplayName("답변 데이터 생성 후 저장")
+	void t9() {
+		// v1
+		Optional<Question> oq = questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+
+		// v2
+		// Question q = questionRepository.findById(2).get();
+
+		Answer a = new Answer();
+		a.setContent("네 자동으로 생성됩니다.");
+		a.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
+		a.setCreateDate(LocalDateTime.now());
+		answerRepository.save(a);
 	}
 }
