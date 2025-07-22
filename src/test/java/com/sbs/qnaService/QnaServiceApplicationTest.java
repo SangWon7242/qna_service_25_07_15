@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ActiveProfiles("test")  // 테스트 프로파일을 사용하여 테스트 환경 설정
 @Transactional
 @Rollback(false)
-class QuestionRepositoryTest {
+class QnaServiceApplicationTest {
 
 	@Autowired
 	private QuestionRepository questionRepository;
@@ -233,5 +233,19 @@ class QuestionRepositoryTest {
 		assertTrue(oa.isPresent());
 		Answer a = oa.get();
 		assertEquals(2, a.getQuestion().getId());
+	}
+
+	@Test
+	@DisplayName("질문을 통해 답변 조회")
+	void t11() {
+		Optional<Question> oq = questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+		
+		// 질문에 있는 답변 목록을 가져옴
+		List<Answer> answerList = q.getAnswerList();
+		// 질문에 대한 답변이 1개가 저장되어 있으므로, answerList의 크기는 1이어야 한다.
+		assertEquals(1, answerList.size());
+		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
 	}
 }
