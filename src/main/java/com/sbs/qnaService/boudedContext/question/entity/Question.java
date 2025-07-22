@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,5 +32,5 @@ public class Question {
   // 만들어도 되고 만들지 않아도 된다.
   // 만약에 만들면 해당 객체와 관련된 답변을 찾을 때 편하다.
   @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-  private List<Answer> answerList;
+  private List<Answer> answerList = new ArrayList<>();
 }

@@ -64,9 +64,14 @@ class QuestionRepositoryTest {
 		// 답변 1개 생성
 		Answer a1 = new Answer();
 		a1.setContent("네 자동으로 생성됩니다.");
-		a1.setQuestion(q2); 
+		a1.setQuestion(q2); // 2번 질문에 대한 답변!
 		a1.setCreateDate(LocalDateTime.now());
 		answerRepository.save(a1);
+
+		// 질문 2번에 대한 답변 리스트에 답변 추가
+		// 객체 지향적 설계!!
+		// 질문 입장에서도 답변 데이터를 조회하기 위해서
+		q2.getAnswerList().add(a1);
 	}
 
 	@Test
