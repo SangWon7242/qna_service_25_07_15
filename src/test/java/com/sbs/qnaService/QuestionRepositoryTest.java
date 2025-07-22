@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ActiveProfiles("test")  // 테스트 프로파일을 사용하여 테스트 환경 설정
 @Transactional
+@Rollback(false)
 class QuestionRepositoryTest {
 
 	@Autowired
@@ -29,10 +30,14 @@ class QuestionRepositoryTest {
 
 	@BeforeEach // 각 테스트 메서드 실행 전에 호출되는 메서드\
 	void beforeEach() {
-		questionRepository.foreignKeyDisabled(); // 외래 키 제약 조건 비활성화
-		questionRepository.truncate();
+		// deleteAll() : DELETE FROM question;
+		questionRepository.deleteAll();
+
+		// AUTO_INCREMENT 초기화
+		// 흔적삭제(다음번 INSERT 시 id가 1부터 시작하도록 초기화)
+		questionRepository.clearAutoIncrement();
+
 		makeTestData();	// 테스트 데이터 생성 메서드 호출
-		questionRepository.foreignKeyEnabled(); // 외래 키 제약 조건 활성화
 	}
 
 	private void makeTestData() {
@@ -51,7 +56,6 @@ class QuestionRepositoryTest {
 
 	@Test
 	@DisplayName("질문 데이터 2개 저장")
-	@Rollback(false)
 	void t1() {
 		Question q3 = new Question();
 		q3.setSubject("스프링부트에 대해서 알고 싶습니다.");
@@ -147,7 +151,6 @@ class QuestionRepositoryTest {
 	*/
 	@Test
 	@DisplayName("update 테스트")
-	@Rollback(false)
 	void t7() {
 		Optional<Question> oq = questionRepository.findById(1);
 		assertTrue(oq.isPresent());
