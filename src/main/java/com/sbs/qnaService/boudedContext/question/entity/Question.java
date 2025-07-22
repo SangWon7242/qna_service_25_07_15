@@ -33,4 +33,12 @@ public class Question {
   // 만약에 만들면 해당 객체와 관련된 답변을 찾을 때 편하다.
   @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
   private List<Answer> answerList = new ArrayList<>();
+
+  // 객체 내부의 상태를 캡슐화할 수 있다.
+  // 외부에서 객체의 상태를 직접 변경하지 못하도록 하고,
+  // 메서드를 통해서만 상태를 변경할 수 있도록 한다.
+  public void addAnswer(Answer answer) {
+    answer.setQuestion(this); // 양방향 연관관계 설정
+    answerList.add(answer);
+  }
 }
