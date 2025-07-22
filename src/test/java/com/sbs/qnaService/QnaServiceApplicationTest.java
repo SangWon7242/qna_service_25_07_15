@@ -238,14 +238,16 @@ class QnaServiceApplicationTest {
 	@DisplayName("질문을 통해 답변 조회")
 	@Transactional
 	void t11() {
+		System.out.println("t11() 실행");
 		// SELECT * FROM question WHERE id = 2;
 		Optional<Question> oq = questionRepository.findById(2);
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
+		// 테스트 환경에서는 get해서 가져온 뒤 DB 연결을 끊음
 		
 		// 질문에 있는 답변 목록을 가져옴
 		// SELECT * FROM answer WHERE question_id = 2;
-		List<Answer> answerList = q.getAnswerList();
+		List<Answer> answerList = q.getAnswerList(); // DB 통신이 끊긴 다음에 가져오기 때문에 실행이 불가능
 
 		// 질문에 대한 답변이 1개가 저장되어 있으므로, answerList의 크기는 1이어야 한다.
 		assertEquals(1, answerList.size());

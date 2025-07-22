@@ -31,7 +31,7 @@ public class Question {
   // DB는 리스트나 배열을 지원하지 않기 때문에
   // 만들어도 되고 만들지 않아도 된다.
   // 만약에 만들면 해당 객체와 관련된 답변을 찾을 때 편하다.
-  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
   private List<Answer> answerList = new ArrayList<>();
 
   // 객체 내부의 상태를 캡슐화할 수 있다.
