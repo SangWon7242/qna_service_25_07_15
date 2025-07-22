@@ -27,5 +27,12 @@ spring:
         use_sql_comments: true # SQL문에 주석을 추가
         highlight_sql: true # SQL문에 색상을 추가
 
+# LOGGING
+# SQL 로그를 조금 더 자세히 출력하기 위한 설정
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+
 server:
   port: 8030

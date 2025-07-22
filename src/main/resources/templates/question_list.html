@@ -10,9 +10,9 @@
     </thead>
     <tbody>
         <tr th:each="q : ${questionList}">
-            <td th:text="${q.id}"></td>
+            <td th:text="${q.id}">번</td>
             <td th:text="${q.subject}"></td>
-            <td th:text="${q.createDate}"></td>
+            <td>[[${q.createDate}]]</td>
         </tr>
     </tbody>
 </table>
