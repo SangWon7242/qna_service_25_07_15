@@ -25,6 +25,6 @@ public class AnswerController {
     // TODO: 답변을 저장한다.
     Answer answer = answerService.create(question, content);
 
-    return "redirect:/question/detail/%s".formatted(id);
+    return "redirect:/question/detail/%s".formatted(id); // GET 방식으로 질문 상세 페이지로 리다이렉트
   }
 }
