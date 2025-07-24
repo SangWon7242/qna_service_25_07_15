@@ -1,22 +1,25 @@
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<!-- 부트스트랩 css 불러오기 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
 
-<h2>질문 리스트</h2>
 
-<table border="1">
-    <thead>
+<div class="container my-3">
+    <table class="table">
+        <thead class="table-dark">
         <tr>
             <th>번호</th>
             <th>제목</th>
             <th>작성일시</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr th:each="q : ${questionList}">
-            <td th:text="${q.id}">번</td>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${questionList}">
+            <td th:text="${question.id}"></td>
             <td>
-                <a th:href="@{|/question/detail/${q.id}|}" th:text="${q.subject}"></a>
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
             </td>
-            <td>[[${q.createDate}]]</td>
+            <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
