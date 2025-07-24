@@ -1,9 +1,5 @@
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-<!-- 부트스트랩 css 불러오기 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
-
-
-<div class="container my-3">
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
         <tr>
@@ -23,3 +19,4 @@
         </tbody>
     </table>
 </div>
+</html>

@@ -9,6 +9,18 @@ html > body {
   font-family: 'GmarketSansMedium';
 }
 
+/* 노말라이즈 */
+body, ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
 textarea {
     width:100%;
 }

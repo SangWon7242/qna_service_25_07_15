@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 모바일 화면에서 화면이 축소되는 것을 방지 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, sbb!</title>
+
+    <!-- 부트스트랩 css 불러오기 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  </head>
+
+  <body>
+    <header class="bg-dark text-white" style="height: 60px;">
+      <nav class="menu-1 h-100">
+        <ul class="d-flex h-100 align-items-center justify-content-center">
+          <li><a href="/" class="p-3">홈</a></li>
+          <li><a href="#" class="p-3">질문 작성</a></li>
+          <li><a href="/question/list" class="p-3">질문 리스트</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-content">
+      <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+      <th:block layout:fragment="content"></th:block>
+      <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    </main>
+  </body>
+</html>
