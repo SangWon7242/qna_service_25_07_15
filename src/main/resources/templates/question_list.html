@@ -11,7 +11,9 @@
     <tbody>
         <tr th:each="q : ${questionList}">
             <td th:text="${q.id}">번</td>
-            <td th:text="${q.subject}"></td>
+            <td>
+                <a th:href="@{|/question/detail/${q.id}|}" th:text="${q.subject}"></a>
+            </td>
             <td>[[${q.createDate}]]</td>
         </tr>
     </tbody>
