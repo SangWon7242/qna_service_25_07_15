@@ -1,5 +1,6 @@
 package com.sbs.qnaService.boudedContext.question.controller;
 
+import com.sbs.qnaService.boudedContext.answer.form.AnswerForm;
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.form.QuestionForm;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
@@ -31,7 +32,9 @@ public class QuestionController {
   }
 
   @GetMapping("/detail/{id}")
-  public String detail(Model model, @PathVariable("id") Integer id) {
+  public String detail(Model model,
+                       @PathVariable("id") Integer id,
+                       AnswerForm answerForm) {
     Question question = questionService.getQuestion(id);
     // Model 객체를 이용하여 뷰에 데이터 전달
     model.addAttribute("question", question);
