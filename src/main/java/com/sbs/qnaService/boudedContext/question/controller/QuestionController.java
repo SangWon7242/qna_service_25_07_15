@@ -45,11 +45,14 @@ public class QuestionController {
   }
 
   @PostMapping("/create")
-  public String questionCreate(@Valid QuestionForm questionForm) {
-    String subject = questionForm.getSubject();
-    String content = questionForm.getContent();
+  public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    // 에러를 가지고 있으면 true, 없으면 false
+    if (bindingResult.hasErrors()) {
+      // 에러가 있으면 question_form.html로 돌아간다.
+      return "question_form";
+    }
 
-    questionService.create(subject, content);
+    questionService.create(questionForm.getSubject(), questionForm.getContent());
     // TODO 질문을 저장한다.
     return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
   }
