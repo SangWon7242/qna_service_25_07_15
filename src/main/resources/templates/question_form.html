@@ -7,11 +7,11 @@
         </div>
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
-            <input type="text" th:field="*{subject}" class="form-control" th:value="${questionForm.subject}" />
+            <input required maxlength="200" placeholder="제목을 입력해주세요.(200자 이내)" type="text" th:field="*{subject}" class="form-control" th:value="${questionForm.subject}" />
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea th:field="*{content}" class="form-control" rows="10" th:text="${questionForm.content}"></textarea>
+            <textarea required maxlength="20000" placeholder="내용을 입력해주세요.(20,000자 이내)" th:field="*{content}" class="form-control" rows="10"  th:text="${questionForm.content}"></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>
