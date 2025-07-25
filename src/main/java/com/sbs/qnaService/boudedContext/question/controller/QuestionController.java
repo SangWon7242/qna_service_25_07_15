@@ -43,6 +43,22 @@ public class QuestionController {
 
   @PostMapping("/create")
   public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+    if(subject == null || subject.trim().isEmpty()) {
+      throw new RuntimeException("subject를 입력해주세요.");
+    }
+
+    if(subject.trim().length() > 200) {
+      throw new RuntimeException("subject는 200자 이내로 입력해주세요.");
+    }
+
+    if(content == null || content.trim().isEmpty()) {
+      throw new RuntimeException("content를 입력해주세요.");
+    }
+
+    if(content.trim().length() > 20000) {
+      throw new RuntimeException("content는 20,000자 이내로 입력해주세요.");
+    }
+
     questionService.create(subject, content);
     // TODO 질문을 저장한다.
     return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
