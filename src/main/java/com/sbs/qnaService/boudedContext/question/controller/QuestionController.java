@@ -1,6 +1,7 @@
 package com.sbs.qnaService.boudedContext.question.controller;
 
 import com.sbs.qnaService.boudedContext.question.entity.Question;
+import com.sbs.qnaService.boudedContext.question.form.QuestionForm;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
 import com.sbs.qnaService.boudedContext.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,10 @@ public class QuestionController {
   }
 
   @PostMapping("/create")
-  public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
+  public String questionCreate(QuestionForm questionForm) {
+    String subject = questionForm.getSubject();
+    String content = questionForm.getContent();
+
     if(subject == null || subject.trim().isEmpty()) {
       throw new RuntimeException("subject를 입력해주세요.");
     }
