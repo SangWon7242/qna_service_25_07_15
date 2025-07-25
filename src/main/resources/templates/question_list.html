@@ -2,6 +2,83 @@
 <div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
+            <tr>
+                <th>속성</th>
+                <th>설명</th>
+                <th>값</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>paging.isEmpty</td>
+                <td>페이지 존재 여부를 의미한다(게시물이 있으면 false, 없으면 true).</td>
+                <td th:text="${paging.isEmpty}"></td>
+            </tr>
+            <tr>
+                <td>paging.totalPages</td>
+                <td>전체 페이지 수를 의미한다.</td>
+                <td th:text="${paging.totalPages}"></td>
+            </tr>
+            <tr>
+                <td>paging.totalElements</td>
+                <td>전체 게시물 수를 의미한다.</td>
+                <td th:text="${paging.totalElements}"></td>
+            </tr>
+            <tr>
+                <td>paging.size</td>
+                <td>한 페이지에 보여지는 게시물 수를 의미한다.</td>
+                <td th:text="${paging.size}"></td>
+            </tr>
+            <tr>
+                <td>paging.number</td>
+                <td>현재 페이지 번호를 의미한다.</td>
+                <td th:text="${paging.number}"></td>
+            </tr>
+            <tr>
+                <td>paging.numberOfElements</td>
+                <td>현재 페이지에 보여지는 게시물 수를 의미한다.</td>
+                <td th:text="${paging.numberOfElements}"></td>
+            </tr>
+            <tr>
+                <td>paging.first</td>
+                <td>첫 페이지 여부를 의미한다.</td>
+                <td th:text="${paging.first}"></td>
+            </tr>
+            <tr>
+                <td>paging.last</td>
+                <td>마지막 페이지 여부를 의미한다.</td>
+                <td th:text="${paging.last}"></td>
+            </tr>
+            <tr>
+                <td>paging.hasNext</td>
+                <td>다음 페이지가 존재하는지 여부를 의미한다.</td>
+                <td th:text="${paging.hasNext}"></td>
+            </tr>
+            <tr>
+                <td>paging.hasPrevious</td>
+                <td>이전 페이지가 존재하는지 여부를 의미한다.</td>
+                <td th:text="${paging.hasPrevious}"></td>
+            </tr>
+<!--            <tr>-->
+<!--                <td>paging.content</td>-->
+<!--                <td>현재 페이지에 보여지는 게시물 목록을 의미한다.</td>-->
+<!--                <td th:text="${paging.content}"></td>-->
+<!--            </tr>-->
+            <tr>
+                <td>paging.sort</td>
+                <td>현재 페이지에 적용된 정렬 기준을 의미한다.</td>
+                <td th:text="${paging.sort}"></td>
+            </tr>
+            <tr>
+                <td>paging.pageable</td>
+                <td>현재 페이지에 적용된 페이징 정보(페이지 번호, 크기 등)를 의미한다.</td>
+                <td th:text="${paging.pageable}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead class="table-dark">
         <tr>
             <th>번호</th>
             <th>제목</th>
@@ -9,7 +86,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="question : ${questionList}">
+        <tr th:each="question : ${paging}">
             <td th:text="${question.id}"></td>
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
