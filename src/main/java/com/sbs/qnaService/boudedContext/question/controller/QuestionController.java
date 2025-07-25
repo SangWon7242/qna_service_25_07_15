@@ -4,10 +4,12 @@ import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.form.QuestionForm;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
 import com.sbs.qnaService.boudedContext.question.service.QuestionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,25 +45,9 @@ public class QuestionController {
   }
 
   @PostMapping("/create")
-  public String questionCreate(QuestionForm questionForm) {
+  public String questionCreate(@Valid QuestionForm questionForm) {
     String subject = questionForm.getSubject();
     String content = questionForm.getContent();
-
-    if(subject == null || subject.trim().isEmpty()) {
-      throw new RuntimeException("subject를 입력해주세요.");
-    }
-
-    if(subject.trim().length() > 200) {
-      throw new RuntimeException("subject는 200자 이내로 입력해주세요.");
-    }
-
-    if(content == null || content.trim().isEmpty()) {
-      throw new RuntimeException("content를 입력해주세요.");
-    }
-
-    if(content.trim().length() > 20000) {
-      throw new RuntimeException("content는 20,000자 이내로 입력해주세요.");
-    }
 
     questionService.create(subject, content);
     // TODO 질문을 저장한다.
