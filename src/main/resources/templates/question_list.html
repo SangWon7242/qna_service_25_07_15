@@ -9,9 +9,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="question : ${paging}">
+        <tr th:each="question, loop : ${paging}">
             <td>
-                <a th:text="${paging.totalElements}" th:href="@{|/question/detail/${question.id}|}"></a>
+                <a th:text="${paging.totalElements - loop.index}" th:href="@{|/question/detail/${question.id}|}"></a>
             </td>
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
