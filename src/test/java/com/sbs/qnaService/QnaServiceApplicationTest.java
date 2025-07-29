@@ -5,6 +5,8 @@ import com.sbs.qnaService.boudedContext.answer.repository.AnswerRepository;
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
 import com.sbs.qnaService.boudedContext.question.service.QuestionService;
+import com.sbs.qnaService.boudedContext.user.repository.UserRepository;
+import com.sbs.qnaService.boudedContext.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,13 @@ class QnaServiceApplicationTest {
 	private QuestionService questionService;
 
 	@Autowired
+	private UserService userService;
+
+	@Autowired
 	private AnswerRepository answerRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@BeforeEach // 각 테스트 메서드 실행 전에 호출되는 메서드\
 	void beforeEach() {
@@ -48,6 +56,13 @@ class QnaServiceApplicationTest {
 		// AUTO_INCREMENT 초기화
 		// 흔적삭제(다음번 INSERT 시 id가 1부터 시작하도록 초기화)
 		questionRepository.clearAutoIncrement();
+
+		userRepository.deleteAll();
+		userRepository.clearAutoIncrement();
+
+		// 회원 2명 생성
+		userService.create("user1", "user1@test.com", "1234");
+		userService.create("user2", "user2@test.com", "1234");
 
 		makeTestData();	// 테스트 데이터 생성 메서드 호출
 	}
