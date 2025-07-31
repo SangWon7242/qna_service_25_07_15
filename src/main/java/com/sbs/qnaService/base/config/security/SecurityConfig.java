@@ -2,6 +2,8 @@ package com.sbs.qnaService.base.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,5 +31,13 @@ public class SecurityConfig {
     // BCrypt 암호화 알고리즘으로 비밀번호를 암호화
   PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+  
+  // AuthenticationManager : 인증을 처리하는 매니저
+  // AuthenticationConfiguration : 인증 관련 설정을 제공
+  // 로그인시 인증 매니저를 통해 사용자 처리
+  @Bean
+  AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    return authenticationConfiguration.getAuthenticationManager();
   }
 }
