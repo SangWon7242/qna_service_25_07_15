@@ -4,6 +4,7 @@ import com.sbs.qnaService.boudedContext.user.form.UserCreateForm;
 import com.sbs.qnaService.boudedContext.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,26 @@ public class UserController {
       return "signup_form";
     }
 
-    userService.create(userCreateForm.getUsername(),
-        userCreateForm.getEmail(), userCreateForm.getPassword1());
+    try {
+      // 회원가입 처리
+      userService.create(userCreateForm.getUsername(),
+          userCreateForm.getEmail(), userCreateForm.getPassword1());
+    } catch (DataIntegrityViolationException e) {
+      // DataIntegrityViolationException : 데이터베이스 무결성 제약 조건 위반
+      // 무결성 : 데이터베이스에 저장된 데이터의 정확성과 일관성, 유효성
+      e.printStackTrace(); // 예외 정보 출력
+      
+      // reject : 오류 메시지를 BindingResult에 추가
+      bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+      return "signup_form";
+    } catch (Exception e) {
+      e.printStackTrace();
+      bindingResult.reject("signupFailed", e.getMessage());
+      
+      // 아래는 일반 적인 개발에서 처리 방식
+      // bindingResult.reject("signupFailed", "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+      return "signup_form";
+    }
 
     return "redirect:/";
   }
