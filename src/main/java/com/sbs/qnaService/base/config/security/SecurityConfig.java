@@ -31,7 +31,11 @@ public class SecurityConfig {
         .formLogin((formLogin) -> formLogin
             .loginPage("/user/login") // 기본 제공되는 페이지 대신에 login 템플릿을 폼으로 사용
             .loginProcessingUrl("/user/login") // 시큐리티한테 로그인 폼 처리 url을 알려줌
-            .defaultSuccessUrl("/")); // 로그인 성공 후 리다이렉트 할 기본 경로
+            .defaultSuccessUrl("/")) // 로그인 성공 후 리다이렉트 할 기본 경로
+        .logout((logout) -> logout
+            .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+            .logoutSuccessUrl("/")
+            .invalidateHttpSession(true)); // 세션을 무효화
 
     return http.build(); // 기본설정이 적용
   }
