@@ -2,6 +2,7 @@ package com.sbs.qnaService.boudedContext.question.service;
 
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
+import com.sbs.qnaService.boudedContext.user.entity.SiteUser;
 import com.sbs.qnaService.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,10 +35,11 @@ public class QuestionService {
     }
   }
 
-  public void create(String subject, String content) {
+  public void create(String subject, String content, SiteUser author) {
     Question q = new Question();
     q.setSubject(subject);
     q.setContent(content);
+    q.setAuthor(author);
     q.setCreateDate(LocalDateTime.now());
     questionRepository.save(q);
   }

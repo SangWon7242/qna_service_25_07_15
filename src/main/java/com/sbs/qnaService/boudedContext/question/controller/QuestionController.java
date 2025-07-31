@@ -55,7 +55,7 @@ public class QuestionController {
       return "question_form";
     }
 
-    questionService.create(questionForm.getSubject(), questionForm.getContent());
+    // questionService.create(questionForm.getSubject(), questionForm.getContent());
     // TODO 질문을 저장한다.
     return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
   }

@@ -1,6 +1,7 @@
 package com.sbs.qnaService.boudedContext.question.entity;
 
 import com.sbs.qnaService.boudedContext.answer.entity.Answer;
+import com.sbs.qnaService.boudedContext.user.entity.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,9 @@ public class Question {
   private String content;
 
   private LocalDateTime createDate; // datetime : 생성일시를 저장하는 필드
+
+  @ManyToOne
+  private SiteUser author;
 
   // @OneToMany : 자바세상에서의 편의를 위해서 필드 생성
   // 이 녀석은 실제로 DB에 테이블을 생성하지 않음

@@ -1,6 +1,7 @@
 package com.sbs.qnaService.boudedContext.answer.entity;
 
 import com.sbs.qnaService.boudedContext.question.entity.Question;
+import com.sbs.qnaService.boudedContext.user.entity.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,9 @@ public class Answer {
   private String content;
 
   private LocalDateTime createDate;
+
+  @ManyToOne
+  private SiteUser author;
 
   @ManyToOne
   @ToString.Exclude // ToString에서 무한 루프를 방지하기 위해 제외
