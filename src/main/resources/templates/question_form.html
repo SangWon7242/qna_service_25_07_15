@@ -1,7 +1,7 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-    <form th:action="@{/question/create}" th:object="${questionForm}" method="POST">
+    <form th:action th:object="${questionForm}" method="POST">
         <!-- 하나의 템플릿에서 다른 템플릿을 불러올 때 사용  -->
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">

@@ -29,6 +29,8 @@ public class Question {
 
   private LocalDateTime createDate; // datetime : 생성일시를 저장하는 필드
 
+  private LocalDateTime modifyDate;
+
   @ManyToOne
   private SiteUser author;
 
