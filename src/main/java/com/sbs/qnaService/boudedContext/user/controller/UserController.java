@@ -5,11 +5,15 @@ import com.sbs.qnaService.boudedContext.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -62,5 +66,20 @@ public class UserController {
   @GetMapping("/login")
   public String login() {
     return "login_form";
+  }
+
+  @GetMapping("/getUserInfo")
+  @ResponseBody
+  public String getUserInfo(Principal principal) {
+    String username = principal.getName();
+    return "현재 로그인한 사용자 : " + username;
+  }
+
+  @GetMapping("/detailUserInfo")
+  @ResponseBody
+  public String getDetailUserInfo(Authentication authentication) {
+    String username = authentication.getName();
+    String roles = authentication.getAuthorities().toString();
+    return "사용자 : %s, 권한 : %s".formatted(username, roles);
   }
 }

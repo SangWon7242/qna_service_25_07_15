@@ -14,7 +14,7 @@
 
           <!-- Authenticated() : '인증됨' -->
           <!-- isAuthenticated() == 로그인 상태 / 로그인 상태인 경우에 로그아웃 버튼 활성화 -->
-          <a class="nav-link" sec:authorize="isAuthenticated()" href="javascript;" onclick="this.nextElementSibling.submit();">로그아웃</a>
+          <a class="nav-link" sec:authorize="isAuthenticated()" onclick="this.nextElementSibling.submit();">로그아웃</a>
 
           <form sec:authorize="isAuthenticated()" th:action="@{/user/logout}" hidden method="POST">로그아웃 폼</form>
         </li>
