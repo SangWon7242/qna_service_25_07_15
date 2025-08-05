@@ -4,10 +4,12 @@ import com.sbs.qnaService.boudedContext.answer.entity.Answer;
 import com.sbs.qnaService.boudedContext.answer.repository.AnswerRepository;
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.user.entity.SiteUser;
+import com.sbs.qnaService.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,5 +25,20 @@ public class AnswerService {
     answerRepository.save(answer);
 
     return answer;
+  }
+
+  public Answer getAnswer(Integer id) {
+    Optional<Answer> answer = answerRepository.findById(id);
+    if (answer.isPresent()) {
+      return answer.get();
+    } else {
+      throw new DataNotFoundException("answer not found");
+    }
+  }
+
+  public void modify(Answer answer, String content) {
+    answer.setContent(content);
+    answer.setModifyDate(LocalDateTime.now());
+    answerRepository.save(answer);
   }
 }
