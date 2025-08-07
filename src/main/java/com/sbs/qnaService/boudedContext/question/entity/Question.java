@@ -9,7 +9,9 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,6 +36,9 @@ public class Question {
   @ManyToOne
   private SiteUser author;
 
+  @ManyToMany
+  Set<SiteUser> voter = new HashSet<>();
+
   // @OneToMany : 자바세상에서의 편의를 위해서 필드 생성
   // 이 녀석은 실제로 DB에 테이블을 생성하지 않음
   // DB는 리스트나 배열을 지원하지 않기 때문에
@@ -48,5 +53,9 @@ public class Question {
   public void addAnswer(Answer answer) {
     answer.setQuestion(this); // 양방향 연관관계 설정
     answerList.add(answer);
+  }
+
+  public void addVoter(SiteUser siteUser) {
+    voter.add(siteUser);
   }
 }

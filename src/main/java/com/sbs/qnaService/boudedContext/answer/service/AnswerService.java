@@ -21,10 +21,11 @@ public class AnswerService {
     answer.setContent(content);
     answer.setAuthor(author);
     answer.setCreateDate(LocalDateTime.now());
-    answer.setQuestion(question);
-    answerRepository.save(answer);
 
-    return answer;
+    answer.setQuestion(question); // 단방향 관계만 설정 Answer -> Question
+    question.addAnswer(answer); // 자바에서 양방향 관계를 설정
+
+    return answerRepository.save(answer);
   }
 
   public Answer getAnswer(Integer id) {

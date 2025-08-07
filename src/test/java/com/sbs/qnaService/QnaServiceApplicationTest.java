@@ -2,6 +2,7 @@ package com.sbs.qnaService;
 
 import com.sbs.qnaService.boudedContext.answer.entity.Answer;
 import com.sbs.qnaService.boudedContext.answer.repository.AnswerRepository;
+import com.sbs.qnaService.boudedContext.answer.service.AnswerService;
 import com.sbs.qnaService.boudedContext.question.entity.Question;
 import com.sbs.qnaService.boudedContext.question.repository.QuestionRepository;
 import com.sbs.qnaService.boudedContext.question.service.QuestionService;
@@ -42,6 +43,9 @@ class QnaServiceApplicationTest {
 	@Autowired
 	private AnswerRepository answerRepository;
 
+  @Autowired
+  private AnswerService answerService;
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -61,39 +65,31 @@ class QnaServiceApplicationTest {
 		userRepository.deleteAll();
 		userRepository.clearAutoIncrement();
 
-		// 회원 2명 생성
-		userService.create("user1", "user1@test.com", "1234");
-		userService.create("user2", "user2@test.com", "1234");
-
 		makeTestData();	// 테스트 데이터 생성 메서드 호출
 	}
 
 	private void makeTestData() {
+    // 회원 2명 생성
+    userService.create("user1", "user1@test.com", "1234");
+    userService.create("user2", "user2@test.com", "1234");
+
 		SiteUser user1 = userService.getUser("user1");
+    SiteUser user2 = userService.getUser("user2");
+    
+    Question q1 = questionService.create("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.", user1);
+		Question q2 = questionService.create("스프링부트 모델 질문입니다.", "id는 자동으로 생성되나요?", user2);
+    
+    // 2번 질문에 대한 첫 번째 답변 생성
+		Answer a1 = answerService.create(q2, "네 자동으로 생성됩니다.", user1);
 
-		Question q1 = new Question();
-		q1.setSubject("sbb가 무엇인가요?");
-		q1.setContent("sbb에 대해서 알고 싶습니다.");
-		q1.setAuthor(user1);
-		q1.setCreateDate(LocalDateTime.now());
-		questionRepository.save(q1);  // 첫번째 질문 저장
+    q1.addVoter(user1);
+    q1.addVoter(user2);
 
-		SiteUser user2 = userService.getUser("user2");
+    q2.addVoter(user1);
+    q2.addVoter(user2);
 
-		Question q2 = new Question();
-		q2.setSubject("스프링부트 모델 질문입니다.");
-		q2.setContent("id는 자동으로 생성되나요?");
-		q2.setAuthor(user2);
-		q2.setCreateDate(LocalDateTime.now());
-		questionRepository.save(q2);  // 두번째 질문 저장
-		
-		// 답변 1개 생성
-		Answer a1 = new Answer();
-		a1.setContent("네 자동으로 생성됩니다.");
-		q2.addAnswer(a1); // 질문과 답변을 하나의 로직을 통해서 처리
-		a1.setAuthor(user1);
-		a1.setCreateDate(LocalDateTime.now());
-		answerRepository.save(a1);
+    a1.addVoter(user1);
+    a1.addVoter(user2);
 	}
 
 	@Test

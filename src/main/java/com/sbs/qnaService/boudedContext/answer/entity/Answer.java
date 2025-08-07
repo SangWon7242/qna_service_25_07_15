@@ -8,6 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,6 +29,13 @@ public class Answer {
 
   @ManyToOne
   private SiteUser author;
+
+  @ManyToMany
+  Set<SiteUser> voter = new HashSet<>();
+
+  public void addVoter(SiteUser siteUser) {
+    voter.add(siteUser);
+  }
 
   @ManyToOne
   @ToString.Exclude // ToString에서 무한 루프를 방지하기 위해 제외

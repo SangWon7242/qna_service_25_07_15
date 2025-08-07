@@ -35,13 +35,13 @@ public class QuestionService {
     }
   }
 
-  public void create(String subject, String content, SiteUser author) {
+  public Question create(String subject, String content, SiteUser author) {
     Question q = new Question();
     q.setSubject(subject);
     q.setContent(content);
     q.setAuthor(author);
     q.setCreateDate(LocalDateTime.now());
-    questionRepository.save(q);
+    return questionRepository.save(q);
   }
   
   // Page<Question> : 페이징 된 질문 데이터를 가져옴
