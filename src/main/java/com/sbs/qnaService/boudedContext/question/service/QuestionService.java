@@ -84,6 +84,12 @@ public class QuestionService {
     // 10 : 페이지당 데이터 개수
     // Sort.by(sorts) : 정렬 기준을 적용
     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 페이지 번호와 페이지당 항목 수 설정
+
+    // 검색어가 없는 경우 유효성 검사
+    if (kw == null || kw.trim().isEmpty()) {
+      return questionRepository.findAll(pageable);
+    }
+
     Specification<Question> spec = search(kw); // Where조건을 적용
 
     return questionRepository.findAll(spec, pageable);
