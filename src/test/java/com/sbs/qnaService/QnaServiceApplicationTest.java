@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -285,9 +286,50 @@ class QnaServiceApplicationTest {
 		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
 	}
 
+  @Test
+  @DisplayName("검색, 질문 제목으로 검색")
+  void t12() {
+    Page<Question> searchResult = questionService.getList(0, "sbb가 무엇인가요?");
+    assertEquals(1, searchResult.getTotalElements());
+  }
+
+  @Test
+  @DisplayName("검색, 질문 내용으로 검색")
+  void t13() {
+    Page<Question> searchResult = questionService.getList(0, "sbb에 대해서 알고 싶습니다.");
+    assertEquals(1, searchResult.getTotalElements());
+  }
+
+  @Test
+  @DisplayName("검색, 질문자이름으로 검색")
+  void t14() {
+    // 첫 번째 질문 작성자는 user1, 첫 번째 답변 작성자도 user1
+    Page<Question> searchResult = questionService.getList(0, "user1");
+    assertEquals(2, searchResult.getTotalElements());
+  }
+
+  @Test
+  @DisplayName("검색, 답변내용으로 검색")
+  void t15() {
+    Page<Question> searchResult = questionService.getList(0, "네 자동으로 생성됩니다.");
+    assertEquals(2, searchResult.getContent().getFirst().getId());
+    assertEquals(1, searchResult.getTotalElements());
+  }
+
+  @Test
+  @DisplayName("검색, 답변자 이름으로 검색")
+  void t16() {
+    Page<Question> searchResult = questionService.getList(0, "user1");
+    // 데이터 정렬은 작성일 기준으로 내림차순 정렬이다.
+    // 그러므로 user1이 작성한 질문과 답변이 나오지만 내림차순 정렬로 인해
+    // 첫번째 내용의 번호는 2번이다.
+    assertEquals(2, searchResult.getContent().getFirst().getId());
+    assertEquals(2, searchResult.getTotalElements());
+  }
+
 	@Test
 	@DisplayName("대량의 테스트 데이터 생성")
-	void t12() {
+	void t17() {
 		SiteUser user2 = userService.getUser("user2");
 		IntStream.rangeClosed(3, 300)
 				.forEach(no ->
