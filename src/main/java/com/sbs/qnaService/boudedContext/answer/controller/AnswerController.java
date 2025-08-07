@@ -46,9 +46,12 @@ public class AnswerController {
 
     SiteUser siteUser = userService.getUser(principal.getName());
     // TODO: 답변을 저장한다.
-    Answer answer = answerService.create(question, answerForm.getContent(), siteUser);
 
-    return "redirect:/question/detail/%s".formatted(id); // GET 방식으로 질문 상세 페이지로 리다이렉트
+    Answer answer = answerService.create(question,
+        answerForm.getContent(), siteUser);
+
+    return String.format("redirect:/question/detail/%s#answer_%s",
+        answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()")
@@ -61,7 +64,8 @@ public class AnswerController {
     }
 
     answerForm.setContent(answer.getContent());
-    return "answer_form";
+    return String.format("redirect:/question/detail/%s#answer_%s",
+        answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()")
@@ -79,7 +83,8 @@ public class AnswerController {
     }
 
     answerService.modify(answer, answerForm.getContent());
-    return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+    return String.format("redirect:/question/detail/%s#answer_%s",
+        answer.getQuestion().getId(), answer.getId());
   }
 
   @PreAuthorize("isAuthenticated()")
@@ -101,6 +106,8 @@ public class AnswerController {
     Answer answer = answerService.getAnswer(id);
     SiteUser siteUser = userService.getUser(principal.getName());
     answerService.vote(answer, siteUser);
-    return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+    
+    return String.format("redirect:/question/detail/%s#answer_%s",
+        answer.getQuestion().getId(), answer.getId());
   }
 }

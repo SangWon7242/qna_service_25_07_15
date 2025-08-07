@@ -25,7 +25,8 @@ public class AnswerService {
     answer.setQuestion(question); // 단방향 관계만 설정 Answer -> Question
     question.addAnswer(answer); // 자바에서 양방향 관계를 설정
 
-    return answerRepository.save(answer);
+    answerRepository.save(answer);
+    return answer;
   }
 
   public Answer getAnswer(Integer id) {
