@@ -106,7 +106,7 @@ public class AnswerController {
     Answer answer = answerService.getAnswer(id);
     SiteUser siteUser = userService.getUser(principal.getName());
     answerService.vote(answer, siteUser);
-    
+
     return String.format("redirect:/question/detail/%s#answer_%s",
         answer.getQuestion().getId(), answer.getId());
   }
