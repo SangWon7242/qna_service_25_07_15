@@ -84,12 +84,15 @@ class QnaServiceApplicationTest {
 
     q1.addVoter(user1);
     q1.addVoter(user2);
+    questionRepository.save(q1);
 
     q2.addVoter(user1);
     q2.addVoter(user2);
+    questionRepository.save(q2);
 
     a1.addVoter(user1);
     a1.addVoter(user2);
+    answerRepository.save(a1);
 	}
 
 	@Test
